@@ -1,10 +1,8 @@
 <template>
-    <h1>Contact Page</h1>
+    <center><h1>Contact Page</h1></center>
 </template>
-
 <script>
 import { onMounted } from 'vue';
-
 export default {
     setup(props, context)
     {

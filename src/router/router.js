@@ -2,9 +2,11 @@ import { createWebHistory, createRouter } from "vue-router";
 
 import Home from "@/views/Home.vue"; 
 import About from "@/views/About.vue";
-import Contact from "@/views/Contact.vue";
-import Produk from "@/views/Produk.vue";
-import Detail from "@/views/Detail.vue";
+import Contact from "@/views/Contact.vue"
+import Produk from "@/views/Produk.vue"
+import Detail from "@/views/Detail.vue"
+import Kategori from "@/views/Kategori.vue"
+import KategoriProduk from "@/views/KategoriProduk.vue"
 
 const routes = [ 
   {
@@ -28,9 +30,21 @@ const routes = [
     component: Produk,
   },
   {
-    path: "/detail",
+    path: "/detail/:id_produk",
     name: "Detail",
     component: Detail,
+    props: true,
+  },
+  {
+    path: "/kategori",
+    name: "Kategori",
+    component: Kategori,
+    
+  },
+  {
+    path: "/kategoriproduk/:id_kategori",
+    name: "KategoriProduk",
+    component: KategoriProduk,
     props: true,
   },
 ];

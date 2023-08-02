@@ -1,7 +1,6 @@
 <template>
-  <h1>Home Page</h1>
+  <center><h1>Home Page</h1></center>
 </template>
-
 <script>
 import { onMounted } from 'vue';
 

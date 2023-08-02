@@ -1,6 +1,6 @@
 <template>
-  <Navbar :idMenu="idMenu" :key="idMenu"/>
-  <router-view @id-menu="setMenu($event)"/>
+  <Navbar :idMenu="idMenu" :key="idMenu" />
+  <router-view @id-menu="setMenu($event)" />
 </template>
 
 <script>

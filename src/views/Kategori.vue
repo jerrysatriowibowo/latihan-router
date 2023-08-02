@@ -1,27 +1,27 @@
 <template>
     <center>
-    <h1>Produk Page</h1>
+    <h1>Halaman Kategori</h1>
     <div class="flex-container">
-        <div v-for="produk in jual" :key="produk.id" class="card">
-            <img class="img" :src="img(produk.img)" alt="Foto">
-        <router-link class="container" :to="{ name : 'Detail', params:{id_produk : produk.id}}">
-            <h4>{{ produk.nama }}</h4>
+        <div v-for="kategori in state" :key="kategori.id" class="card">
+            <img class="img" :src="img(kategori.img)" alt="Foto">
+        <router-link class="container" :to="{ name : 'KategoriProduk', params:{id_kategori : kategori.id}}">
+            <h4>{{ kategori.nama }}</h4>
         </router-link>
-    </div>
+        </div>
     </div>
     </center>
 </template>
 <script>
 import { onMounted, reactive } from 'vue';
-import { produk } from '@/assets/Produk';
+import { kategori } from '@/assets/Kategori';
 
 export default{
-    setup(props,context){
+    setup(props, context){
 
-        const jual = reactive(produk["produk"]);
+        const state = reactive(kategori["kategori"]);
 
         onMounted(() => {
-            context.emit("id-menu",4)
+            context.emit("id-menu",5)
         });
 
         const img = (NamaFoto) => {
@@ -29,7 +29,7 @@ export default{
         }
 
         return{
-            jual,
+            state,
             img
         }
     }
@@ -38,12 +38,11 @@ export default{
 <style scoped>
 .flex-container {
     display: flex;
-    flex-wrap: wrap;
 }
 .card {
-    box-shadow: 0 20px 20px 0 grey;
+    box-shadow: 0 10px 10px 0 grey;
     transition: 0.1s;
-    margin: 55px;
+    margin: 26px;
     min-width: 200px;
     cursor: pointer;
 }
@@ -55,6 +54,6 @@ export default{
 }
 .img{
     width: 150px;
-    height: 160px;
+    height: 170px;
 }
 </style>
