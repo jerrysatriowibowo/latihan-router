@@ -1,4 +1,8 @@
 <template>
+    <div v-if="data.length == 0">
+        <center><h1>Produk Tidak Sedang Tidak Tersedia</h1></center>
+    </div>
+    <div v-else>
     <center><h1>Daftar Produk {{ NamaKategori }}</h1>
     <div class="flex-container">
         <div v-for="produk in data" :key="produk.id" class="card">
@@ -8,7 +12,8 @@
         </router-link>
     </div>
     </div></center>
-  </template>
+    </div>
+</template>
 <script>
 import { computed } from 'vue';
 import { produk } from '../assets/Produk';

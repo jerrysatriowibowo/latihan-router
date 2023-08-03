@@ -2,11 +2,13 @@ import { createWebHistory, createRouter } from "vue-router";
 
 import Home from "@/views/Home.vue"; 
 import About from "@/views/About.vue";
-import Contact from "@/views/Contact.vue"
-import Produk from "@/views/Produk.vue"
-import Detail from "@/views/Detail.vue"
-import Kategori from "@/views/Kategori.vue"
-import KategoriProduk from "@/views/KategoriProduk.vue"
+import Contact from "@/views/Contact.vue";
+import Produk from "@/views/Produk.vue";
+import Detail from "@/views/Detail.vue";
+import Kategori from "@/views/Kategori.vue";
+import KategoriProduk from "@/views/KategoriProduk.vue";
+import NotFound from "@/views/NotFound.vue";
+import Login from "@/views/Login.vue";
 
 const routes = [ 
   {
@@ -28,6 +30,14 @@ const routes = [
     path: "/produk",
     name: "Produk",
     component: Produk,
+    beforeEnter: (to, from, next) => {
+      const loggedInUser = true;
+      if (loggedInUser) {
+        next();
+      }else{
+        next("/login");
+      }
+    }
   },
   {
     path: "/detail/:id_produk",
@@ -47,6 +57,15 @@ const routes = [
     component: KategoriProduk,
     props: true,
   },
+  {
+    path: "/:patMatch(.*)*",
+    component: NotFound,
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: Login,
+  }
 ];
 
 const router = createRouter({
