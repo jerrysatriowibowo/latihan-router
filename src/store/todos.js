@@ -1,34 +1,31 @@
 import { createStore } from "vuex";
 
-const todos = createStore({
-    state: {
-        todos:[],
+const todosStore = createStore({
+  state: {
+    title: "Vuex Store",
+    notes: [],
+  },
+  getters: {
+    totalNotes(state) {
+      return state.notes.length;
     },
-    mutations: {
-        addTodo(state, todo) {
-            state.todos.push(todo);
-        },
-        deleteTodo(state, todoId) {
-            state.todos = state.todos.filter((todo) => todo.id !== todoId);
-        },
-        toggleTodoStatus(state, todoId) {
-            const todo = state.todos.find((todo) => todo.id === todoId);
-            if (todo) {
-                todo.completed = !todo.completed;
-            }
-        },
+  },
+  mutations: {
+    SAVE_NOTE(state, title) {
+      state.notes.push(title);
     },
-    actions: {},
-    getters: {
-        getAllTodos: (state) => {
-            return state.todos;
-        },
-        getCompletedTodos:(state) => {
-            return state.todos.filter((todo) => todo.completed);
-        },
-        getActiveTodos: (state) => {
-            return state.todos.filter((todo) => todo.completed);
-        },
+    DELETE_NOTE(state, index) {
+      state.notes.splice(index, 1);
     },
+  },
+  actions: {
+    saveNote({ commit }, title) {
+      commit("SAVE_NOTE", title);
+    },
+    deleteNote({ commit }, index) {
+      commit("DELETE_NOTE", index);
+    },
+  },
 });
-export default todos;
+
+export default todosStore;

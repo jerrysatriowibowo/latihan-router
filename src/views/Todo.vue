@@ -2,53 +2,66 @@
     <div class="todo-list">
         <h2>Daftar Tugas</h2>
         <div class="add-todo">
-            <input v-model="newTodo" @keyup.enter="addTodo" placeholder="Tambahkan Tugas">
-            <button @click="addTodo">Tambah</button>
+            <input type="text" v-model="title" @keypress.enter="save" />
+            <p>Total Tugas : {{ totalNotes }}</p>
         </div>
         <ul>
-            <li v-for="todo in todos" :key="todo.id" :class="{completed: todo.completed}">
-            <span @click="toggleTodoStatus(todo.id)">{{ todo.text }}</span>
-            <button @click="deleteTodo(todo.id)">Hapus</button>
+            <li v-for="(note, index) in notes" :key="index">
+                {{ note }}
+                <button @click="deleteNote(index)">Hapus</button>
             </li>
         </ul>
     </div>
 </template>
-<script>
-import { mapState, mapMutations } from 'vuex';
 
+<script>
+import { useStore } from "vuex";
+import { computed, ref } from "vue";
 export default {
-    data() {
+    setup() {
+        const store = useStore();
+        const totalNotes = computed(() => store.getters.totalNotes);
+        const title = ref("");
+        function save() {
+            store.dispatch("saveNote", title.value);
+            title.value = "";
+        }
+        function deleteNote(index) {
+            store.dispatch("deleteNote", index);
+        }
+
+        const notes = computed(() => store.state.notes);
         return {
-            newTodo: '',
+            notes,
+            totalNotes,
+            title,
+            save,
+            deleteNote,
         };
-    },
-    computed: {
-        ...mapState(['todos']),
-    },
-    methods: {
-        ...mapMutations(['addTodo', 'deleteTodo', 'toggleTodoStatus']),
     },
 };
 </script>
+
 <style scoped>
 .todo-list {
     text-align: center;
 }
+
 ul {
     list-style-type: none;
     padding: 0;
 }
+
 li {
     margin: 10px 0;
     cursor: pointer;
 }
-.completed {
-    text-decoration: line-through;
-}
 .add-todo input {
     padding: 5px;
-    margin-right: 10px;
+    margin-right: 9px;
+    border-radius: 20px;
 }
+
 .add-todo button {
     padding: 5px 10px;
     cursor: pointer;
